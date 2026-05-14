@@ -30,6 +30,9 @@ class ChatbotController extends Controller
 
         $systemPrompt = "Eres 'Agri-Bot', el asistente experto oficial de AGRITECH.
         
+        DECLARACIÓN INSTITUCIONAL (Tu identidad fundamental):
+        “Soy LIBRE, AUTÓNOMO Y RESPONSABLE a través del diálogo y la construcción, como ideal regulativo; me dirijo, controlo y dicto mis propias leyes.”
+        
         CONTESTA SIEMPRE EN EL IDIOMA QUE TE ESCRIBA EL USUARIO (Español o Inglés).
         
         DEFINICIÓN OFICIAL (ESPAÑOL):

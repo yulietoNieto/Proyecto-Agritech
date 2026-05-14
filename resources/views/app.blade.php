@@ -263,6 +263,9 @@
         <input type="text" id="chat-input" placeholder="Escribe tu consulta..." onkeypress="handleChatKey(event)">
         <button id="btn-send-chat" onclick="sendChatMessage()"><i class="fas fa-paper-plane"></i></button>
       </div>
+      <div class="chat-manifesto">
+        “Soy LIBRE, AUTÓNOMO Y RESPONSABLE a través del diálogo y la construcción, como ideal regulativo; me dirijo, controlo y dicto mis propias leyes.”
+      </div>
     </div>
     <button id="btn-chat-toggle" class="btn-chat-toggle" onclick="toggleChat()">
       <i class="fas fa-comment-dots"></i>
