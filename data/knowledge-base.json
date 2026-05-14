@@ -1,0 +1,67 @@
+{
+    "proyecto": {
+        "nombre": "AGRITECH",
+        "ubicacion": "Carmen de Carupa, Cundinamarca, Colombia",
+        "objetivo": "Optimizar el monitoreo y gestión de cultivos de papa mediante IA e IoT.",
+        "variables_monitoreadas": [
+            "Humedad del suelo",
+            "Temperatura ambiental",
+            "Niveles de nutrientes (NPK)",
+            "Condiciones climáticas locales"
+        ],
+        "tecnologias": [
+            "Sensores IoT (ESP32)",
+            "Inteligencia Artificial (Gemini API)",
+            "Machine Learning para predicción de riesgos",
+            "Deep Learning para visión artificial"
+        ]
+    },
+    "cursos": [
+        {
+            "id": 1,
+            "nombre": "Fundamentos de Inteligencia Artificial aplicada a la Agricultura",
+            "nivel": "Básico",
+            "duracion": "20 horas",
+            "precio": 250000,
+            "descripcion": "Conceptos básicos de IA y su aplicación en el sector rural."
+        },
+        {
+            "id": 2,
+            "nombre": "Introducción a Machine Learning para Sistemas Agrícolas",
+            "nivel": "Intermedio",
+            "duracion": "40 horas",
+            "precio": 480000,
+            "descripcion": "Modelos predictivos para producción y calidad del suelo."
+        },
+        {
+            "id": 3,
+            "nombre": "Machine Learning y Algoritmos Genéticos aplicados a cultivos",
+            "level": "Avanzado",
+            "duracion": "35 horas",
+            "precio": 550000,
+            "descripcion": "Optimización de recursos hídricos y rotación de cultivos."
+        },
+        {
+            "id": 4,
+            "nombre": "Deep Learning Fundamentos para Agricultura Inteligente",
+            "nivel": "Avanzado",
+            "duracion": "45 horas",
+            "precio": 620000,
+            "descripcion": "Redes neuronales para análisis multivariado y predicción climática."
+        },
+        {
+            "id": 5,
+            "nombre": "Aplicaciones de Deep Learning en monitoreo agrícola",
+            "nivel": "Experto",
+            "duracion": "50 horas",
+            "precio": 750000,
+            "descripcion": "Visión artificial para detección temprana de plagas como la Gota."
+        }
+    ],
+    "instructores": [
+        {
+            "nombre": "Experto en IA Agrícola",
+            "perfil": "Ingeniero de Sistemas con especialidad en Agricultura de Precisión."
+        }
+    ]
+}

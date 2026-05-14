@@ -1,0 +1,40 @@
+{
+    "name": "agritech/monitoring",
+    "description": "AGRITECH IoT Monitoring System - Papa Carmen de Carupa",
+    "type": "project",
+    "require": {
+        "php": "^8.2",
+        "laravel/framework": "^12.0",
+        "laravel/sanctum": "^4.0",
+        "barryvdh/laravel-dompdf": "^3.0",
+        "guzzlehttp/guzzle": "^7.2"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "laravel/tinker": "^2.9",
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-install-cmd": [
+            "@php artisan key:generate --ansi"
+        ]
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

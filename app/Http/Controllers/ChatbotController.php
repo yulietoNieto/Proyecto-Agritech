@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+
+class ChatbotController extends Controller
+{
+    /**
+     * Maneja las consultas al chatbot usando la API de Gemini.
+     * Contexto personalizado con la descripción oficial del usuario.
+     */
+    public function ask(Request $request)
+    {
+        $request->validate([
+            'message' => 'required|string|max:1000',
+            'lang' => 'nullable|string|in:es,en',
+        ]);
+
+        $apiKey = config('services.gemini.key');
+        
+        if (!$apiKey || $apiKey === 'YOUR_API_KEY_HERE') {
+            return response()->json(['message' => 'API Key no configurada.'], 500);
+        }
+
+        $userMessage = $request->input('message');
+        $lang = $request->input('lang', 'es');
+
+        $systemPrompt = "Eres 'Agri-Bot', el asistente experto oficial de AGRITECH.
+        
+        CONTESTA SIEMPRE EN EL IDIOMA QUE TE ESCRIBA EL USUARIO (Español o Inglés).
+        
+        DEFINICIÓN OFICIAL (ESPAÑOL):
+        🌱 Agritech es un sistema inteligente desarrollado para mejorar la producción agrícola mediante el uso de tecnologías IoT, sensores inteligentes e inteligencia artificial.
+        El proyecto permite monitorear en tiempo real variables importantes del cultivo como: Humedad del suelo, Temperatura ambiental, Niveles de nutrientes y Condiciones climáticas.
+        Con esta información, Agritech analiza los datos y genera recomendaciones automáticas para optimizar el riego, el uso de fertilizantes y el control del cultivo.
+        🚜 Tecnologías: Sensores IoT, IA, Machine Learning, Automatización, Análisis en tiempo real.
+
+        OFFICIAL DEFINITION (ENGLISH):
+        🌱 Agritech is an intelligent system developed to improve agricultural production through the use of IoT technologies, smart sensors, and artificial intelligence.
+        The project allows real-time monitoring of important crop variables such as: Soil moisture, Ambient temperature, Nutrient levels, and Weather conditions.
+        With this information, Agritech analyzes the data and generates automatic recommendations to optimize irrigation, fertilizer use, and crop control.
+        🚜 Technologies: IoT Sensors, AI, Machine Learning, Automation, Real-time data analysis.
+        
+        REGLAS / RULES:
+        1. If the user asks in English, use the English definition. If in Spanish, use the Spanish one.
+        2. Respond professionally and helpfully.
+        3. Do not invent technologies.
+        4. Tone: Expert Systems Engineering student.";
+
+        $modelsToTry = [
+            ['ver' => 'v1beta', 'mod' => 'gemini-flash-latest'],
+            ['ver' => 'v1beta', 'mod' => 'gemini-pro-latest'],
+            ['ver' => 'v1beta', 'mod' => 'gemini-2.5-flash-lite'],
+        ];
+
+        foreach ($modelsToTry as $config) {
+            try {
+                $url = "https://generativelanguage.googleapis.com/{$config['ver']}/models/{$config['mod']}:generateContent?key={$apiKey}";
+                
+                $response = Http::withHeaders(['Content-Type' => 'application/json'])
+                    ->post($url, [
+                        'contents' => [
+                            ['parts' => [['text' => $systemPrompt . "\n\nUsuario: " . $userMessage]]]
+                        ]
+                    ]);
+
+                if ($response->successful()) {
+                    $data = $response->json();
+                    $aiResponse = $data['candidates'][0]['content']['parts'][0]['text'] ?? null;
+                    if ($aiResponse) {
+                        return response()->json(['message' => $aiResponse]);
+                    }
+                }
+            } catch (\Exception $e) {
+                Log::error("Excepción con {$config['mod']}: " . $e->getMessage());
+            }
+        }
+
+        return response()->json(['message' => 'Error de conexión con Agri-Bot.'], 500);
+    }
+}
